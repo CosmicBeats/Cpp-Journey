@@ -11,6 +11,7 @@ void InputValidation(std::string& pUserInput, std::vector<std::pair<std::string,
 void DisplaySubTopic(int& pUserInput);
 
 std::string ToLower(const std::string& str);
+std::vector<std::pair<std::string, std::vector<std::string>>>::const_iterator FindMainTopic(const std::vector<std::pair<std::string, std::vector<std::string>>>& topics, const std::string& topicName);
 
 int main()
 {
@@ -76,9 +77,13 @@ std::string ToLower(const std::string& str)
 
 std::vector<std::pair<std::string, std::vector<std::string>>>::const_iterator FindMainTopic(const std::vector<std::pair<std::string, std::vector<std::string>>>& topics, const std::string& topicName) 
 {
+    std::string lowerTopicName = ToLower(topicName);
+
     for (auto it = topics.begin(); it != topics.end(); ++it) 
     {
-        if (ToLower(it->first) == ToLower(topicName)) 
+        std::string lowerMainTopicName = ToLower(it->first);
+
+        if (lowerMainTopicName.find(lowerTopicName) != std::string::npos)
         {
             return it; 
         }
@@ -120,6 +125,18 @@ void InputValidation(std::string& pUserInput, std::vector<std::pair<std::string,
     {
         std::getline(std::cin, pUserInput);
         auto mainTopicIt = FindMainTopic(pTopics, pUserInput);
+
+        if (mainTopicIt != pTopics.end()) 
+        {
+           
+            std::cout << "\nYou have selected the topic: " << mainTopicIt->first << std::endl;
+            break;
+           
+        }
+        else 
+        {
+            std::cout << "\nSorry, the topic you entered was not found." << std::endl;
+        }
     }
     
     
