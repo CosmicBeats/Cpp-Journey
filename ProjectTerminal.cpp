@@ -7,8 +7,10 @@
 
 void Start();
 void PrintSlowText(std::string text);
-void UserValidation(int& pUserInput);
+void InputValidation(std::string& pUserInput, std::vector<std::pair<std::string, std::vector<std::string>>> pTopics);
 void DisplaySubTopic(int& pUserInput);
+
+std::string ToLower(const std::string& str);
 
 int main()
 {
@@ -17,7 +19,7 @@ int main()
 
 void Start()
 {
-    int userInput = 0;
+    std::string userMainTopicInput;
 
     std::vector<std::pair<std::string, std::vector<std::string>>> topics = 
     {
@@ -58,8 +60,30 @@ void Start()
         std::cout << mainTopic.first << std::endl;
     }
 
-    PrintSlowText("\n\nPlease choose a number:");
-    UserValidation(userInput);
+    PrintSlowText("\n\nPlease enter the name of the main topic you want to review: ");
+    InputValidation(userMainTopicInput, topics);
+}
+
+std::string ToLower(const std::string& str) 
+{
+    std::string result;
+    for (char c : str) 
+    {
+        result += std::tolower(c);
+    }
+    return result;
+}
+
+std::vector<std::pair<std::string, std::vector<std::string>>>::const_iterator FindMainTopic(const std::vector<std::pair<std::string, std::vector<std::string>>>& topics, const std::string& topicName) 
+{
+    for (auto it = topics.begin(); it != topics.end(); ++it) 
+    {
+        if (ToLower(it->first) == ToLower(topicName)) 
+        {
+            return it; 
+        }
+    }
+    return topics.end();
 }
 
 void DisplaySubTopic(int& pUserInput)
@@ -90,26 +114,14 @@ void DisplaySubTopic(int& pUserInput)
 }
 
 // Helper function for input validation
-void UserValidation(int& pUserInput)
+void InputValidation(std::string& pUserInput, std::vector<std::pair<std::string, std::vector<std::string>>> pTopics)
 {
     while (true)
     {
-        std::cin >> pUserInput;
-        if (std::cin.fail() && !isdigit(pUserInput))
-        {
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-            PrintSlowText("\n\nThat is not a number!!!\nPlease choose a number:");
-        }
-        else if (pUserInput > 10 || pUserInput < 1)
-        {
-            PrintSlowText("\n\nThat is not a choice!!!\nPlease choose a number:");
-        }
-        else
-        {
-            break;
-        }
+        std::getline(std::cin, pUserInput);
+        auto mainTopicIt = FindMainTopic(pTopics, pUserInput);
     }
+    
     
 }
 
