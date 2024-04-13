@@ -1,20 +1,25 @@
 #include <iostream>
 #include <Windows.h>
 #include <vector>
+#include <unordered_map>
 #include <string>
 
+void Start();
 void PrintSlowText(std::string text);
 void UserValidation(int& pUserInput);
-//void DisplayTopic(int& pUserInput);
+void DisplayTopic(int& pUserInput);
 
 int main()
 {
-    // Needed variables to work with ^.^
+    void Start();
+}
 
+void Start()
+{
     int userInput = 0;
 
-    std::vector<std::string> topics {"1.  C++ Basics", "2.  C++ Variables and Constants", "3.  C++ Data Types and Literals", "4.  C++ Operators", "5.  C++ Input/Output",
-                              "6.  C++ Control Statements", "7.  C++ Funtions", "8.  C++ Pointer and References", "9.  C++ Arrays", "10. C++ Strings"};
+    std::vector<std::string> topics{ "1.  C++ Basics", "2.  C++ Variables and Constants", "3.  C++ Data Types and Literals", "4.  C++ Operators", "5.  C++ Input/Output",
+                              "6.  C++ Control Statements", "7.  C++ Funtions", "8.  C++ Pointer and References", "9.  C++ Arrays", "10. C++ Strings" };
 
     PrintSlowText("Hello user!!!\nWhat would you like to review today?\n\n");
 
@@ -25,10 +30,34 @@ int main()
 
     PrintSlowText("\n\nPlease choose a number:");
     UserValidation(userInput);
-
-
 }
 
+void DisplayTopic(int& pUserInput)
+{
+    switch(pUserInput)
+    {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    case 7:
+        break;
+    case 8:
+        break;
+    case 9:
+        break;
+    case 10:
+        break;
+    }
+}
 
 // Helper function for input validation
 void UserValidation(int& pUserInput)
