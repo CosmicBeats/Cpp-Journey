@@ -1,6 +1,5 @@
 #include "Manual.h"
 
-
 int main()
 {
     Manual manual;

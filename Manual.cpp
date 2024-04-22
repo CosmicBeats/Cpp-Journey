@@ -31,6 +31,8 @@ Manual::Manual()
         {"C++ Arrays",                  {"C++ Arrays", "C++ Multidimensional Arrays", "C++ Pointer to an Array", "Size of Array parameter", "Passing Arrays to Functions in C++",
                                          "What is Array Decay in C++? How can it be prevented?"}}
     };
+
+    
 }
 
 void Manual::Start()
@@ -42,11 +44,11 @@ void Manual::Start()
         std::cout << mainTopic.first << std::endl;
     }
 
-    PrintSlowText("\n\nPlease enter the name of the main topic you want to review: ");
-    InputValidation();
+    PrintSlowText("\nPlease enter the name of the main topic you want to review: ");
+    MainInputValidation();
 }
 
-void Manual::InputValidation()
+void Manual::MainInputValidation()
 {
     while (true)
     {
@@ -63,13 +65,24 @@ void Manual::InputValidation()
             continue;
         }
 
-        auto mainTopicIt = FindMainTopic();
+        auto iterator = FindMainTopic();
 
-        if (mainTopicIt != topics.end())
+        if (iterator != topics.end())
         {
             
-            std::cout << "\nYou have selected the topic: " << mainTopicIt->first << std::endl;
-            break;
+
+            PrintSlowText("\nYou have selected the topic: ");
+            std::cout << iterator->first << std::endl << std::endl;
+           
+
+            for (const auto& subtopic : iterator->second)
+            {
+                std::cout <<  subtopic << std::endl;
+            }
+
+            PrintSlowText("\nPlease enter the name of the sub topic you want to review: ");
+
+            SubInputValidation();
 
         }
         else
@@ -78,6 +91,39 @@ void Manual::InputValidation()
             PrintSlowText("\n\nPlease enter the name of the main topic you want to review: ");
         }
     }
+}
+
+void Manual::SubInputValidation()
+{
+    while (true)
+    {
+        std::getline(std::cin, userSubTopicInput);
+
+        if (userSubTopicInput.length() < 3)
+        {
+            PrintSlowText("\nPlease enter at least 3 characters: ");
+            continue;
+        }
+        else if (userSubTopicInput == "C++")
+        {
+            std::cout << "\nPlease be more specific: ";
+            continue;
+        }
+
+        std::string strIndex = FindSubTopic();
+
+        if (strIndex != "")
+        {
+            PrintSlowText("\nYou have selected the topic: ");
+
+            
+            std::cout << strIndex << std::endl << std::endl;
+            break;
+        }
+    }
+
+
+   
 }
 
 void Manual::PrintSlowText(std::string text)
@@ -99,7 +145,8 @@ std::string Manual::ToLower(const std::string& str)
     return result;
 }
 
-std::vector<std::pair<std::string, std::vector<std::string>>>::const_iterator Manual::FindMainTopic()
+
+std::vector < std::pair<std::string, std::vector<std::string>>>::const_iterator Manual::FindMainTopic()
 {
     std::string lowerTopicName = ToLower(userMainTopicInput);
 
@@ -114,4 +161,28 @@ std::vector<std::pair<std::string, std::vector<std::string>>>::const_iterator Ma
     }
     return topics.end();
 }
+
+std::string Manual::FindSubTopic()
+{
+    std::string lowerTopicName = ToLower(userSubTopicInput);
+
+    for (size_t i = 0; i < topics.size(); ++i)
+    {
+        for (size_t j = 0; j < topics[i].second.size(); ++j)
+        {
+            std::string lowerSubTopicName = ToLower(topics[i].second[j]);
+
+            if (lowerSubTopicName.find(lowerTopicName) != std::string::npos)
+            {
+                return topics[i].second[j];
+            }
+        }
+    }
+    return "";
+
+}
+
+
+
+
 

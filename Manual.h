@@ -6,11 +6,14 @@
 #include <algorithm>
 #include <cctype>
 
+
 class Manual
 {
 	// Variables to work with
 
 	std::string userMainTopicInput;
+
+    std::string userSubTopicInput;
   
     std::vector<std::pair<std::string, std::vector<std::string>>> topics;
 
@@ -19,11 +22,16 @@ class Manual
 public:
     Manual();
     void Start();
-    void InputValidation();
+    void MainInputValidation();
+    void SubInputValidation();
     void PrintSlowText(std::string text);
 
-    std::vector<std::pair<std::string, std::vector<std::string>>>::const_iterator FindMainTopic();
+    std::vector < std::pair<std::string, std::vector<std::string>>>::const_iterator FindMainTopic();
+
+    std::string FindSubTopic();
     std::string ToLower(const std::string& str);
+
+    
 
 };
 
