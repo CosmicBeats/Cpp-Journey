@@ -32,7 +32,7 @@ Manual::Manual()
                                          "What is Array Decay in C++? How can it be prevented?"}}
     };
 
-    
+    inMainTopic = true;
 }
 
 void Manual::Start()
@@ -50,7 +50,7 @@ void Manual::Start()
 
 void Manual::MainInputValidation()
 {
-    while (true)
+    while (inMainTopic)
     {
         std::getline(std::cin, userMainTopicInput);
 
@@ -73,7 +73,8 @@ void Manual::MainInputValidation()
 
             PrintSlowText("\nYou have selected the topic: ");
             std::cout << iterator->first << std::endl << std::endl;
-           
+
+            inMainTopic = false;
 
             for (const auto& subtopic : iterator->second)
             {
@@ -95,7 +96,7 @@ void Manual::MainInputValidation()
 
 void Manual::SubInputValidation()
 {
-    while (true)
+    while (inMainTopic == false)
     {
         std::getline(std::cin, userSubTopicInput);
 
@@ -110,14 +111,14 @@ void Manual::SubInputValidation()
             continue;
         }
 
-        std::string strIndex = FindSubTopic();
+        std::string subTopics = FindSubTopic();
 
-        if (strIndex != "")
+        if (subTopics != "")
         {
             PrintSlowText("\nYou have selected the topic: ");
 
             
-            std::cout << strIndex << std::endl << std::endl;
+            std::cout << subTopics << std::endl << std::endl;
             break;
         }
     }

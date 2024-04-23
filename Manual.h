@@ -11,6 +11,8 @@ class Manual
 {
 	// Variables to work with
 
+    bool inMainTopic;
+
 	std::string userMainTopicInput;
 
     std::string userSubTopicInput;
