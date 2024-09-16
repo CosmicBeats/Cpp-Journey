@@ -64,6 +64,11 @@ void Manual::MainInputValidation()
             std::cout << "\nPlease be more specific: ";
             continue;
         }
+        else if (userMainTopicInput == "c++")
+        {
+            std::cout << "\nPlease be more specific: ";
+            continue;
+        }
 
         auto iterator = FindMainTopic();
 
@@ -106,6 +111,11 @@ void Manual::SubInputValidation()
             continue;
         }
         else if (userSubTopicInput == "C++")
+        {
+            std::cout << "\nPlease be more specific: ";
+            continue;
+        }
+        else if (userMainTopicInput == "c++")
         {
             std::cout << "\nPlease be more specific: ";
             continue;
