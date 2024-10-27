@@ -21,9 +21,15 @@
     <ClCompile Include="Manual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SubTopics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SubTopics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

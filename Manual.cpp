@@ -2,6 +2,7 @@
 
 Manual::Manual()
 {
+    Manual manual;
     topics = {
         {"C++ Programming Language",    {"What is C++?", "Why Learn C++?"}},
 
@@ -31,6 +32,9 @@ Manual::Manual()
         {"C++ Arrays",                  {"C++ Arrays", "C++ Multidimensional Arrays", "C++ Pointer to an Array", "Size of Array parameter", "Passing Arrays to Functions in C++",
                                          "What is Array Decay in C++? How can it be prevented?"}}
     };
+
+    
+    
 
     inMainTopic = true;
 }
@@ -115,26 +119,26 @@ void Manual::SubInputValidation()
             std::cout << "\nPlease be more specific: ";
             continue;
         }
-        else if (userMainTopicInput == "c++")
+        else if (userSubTopicInput == "c++")
         {
             std::cout << "\nPlease be more specific: ";
             continue;
         }
-
-        std::string subTopics = FindSubTopic();
-
-        if (subTopics != "")
+        else
         {
-            PrintSlowText("\nYou have selected the topic: ");
+            std::string subTopics = FindSubTopic();
 
-            
-            std::cout << subTopics << std::endl << std::endl;
-            break;
+            if (subTopics != "")
+            {
+                PrintSlowText("\nYou have selected the topic: ");
+
+
+                std::cout << subTopics << std::endl << std::endl;
+                SelectTopic();
+            }
         }
     }
 
-
-   
 }
 
 void Manual::PrintSlowText(std::string text)
@@ -193,7 +197,21 @@ std::string Manual::FindSubTopic()
 
 }
 
+void Manual::SelectTopic()
+{
+    SubTopics subTopics;
+    auto it = subTopics.subTopicActions.find(userSubTopicInput);
+    if (it != subTopics.subTopicActions.end())
+    {
+        it->second();
+    }
+    else
+    {
+        std::cout << "Function not found!" << std::endl;
+    }
+    
 
+}
 
 
 

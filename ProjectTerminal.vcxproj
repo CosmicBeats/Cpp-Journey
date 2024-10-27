@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="Manual.cpp" />
     <ClCompile Include="ProjectTerminal.cpp" />
+    <ClCompile Include="SubTopics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manual.h" />
+    <ClInclude Include="SubTopics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
