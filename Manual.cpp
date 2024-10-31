@@ -2,7 +2,7 @@
 
 Manual::Manual()
 {
-    Manual manual;
+    
     topics = {
         {"C++ Programming Language",    {"What is C++?", "Why Learn C++?"}},
 
@@ -32,9 +32,6 @@ Manual::Manual()
         {"C++ Arrays",                  {"C++ Arrays", "C++ Multidimensional Arrays", "C++ Pointer to an Array", "Size of Array parameter", "Passing Arrays to Functions in C++",
                                          "What is Array Decay in C++? How can it be prevented?"}}
     };
-
-    
-    
 
     inMainTopic = true;
 }
@@ -130,11 +127,13 @@ void Manual::SubInputValidation()
 
             if (subTopics != "")
             {
+                system("cls");
                 PrintSlowText("\nYou have selected the topic: ");
 
 
                 std::cout << subTopics << std::endl << std::endl;
                 SelectTopic();
+                break;
             }
         }
     }
@@ -200,7 +199,10 @@ std::string Manual::FindSubTopic()
 void Manual::SelectTopic()
 {
     SubTopics subTopics;
-    auto it = subTopics.subTopicActions.find(userSubTopicInput);
+
+    std::string subTopic = FindSubTopic();
+
+    auto it = subTopics.subTopicActions.find(subTopic);
     if (it != subTopics.subTopicActions.end())
     {
         it->second();

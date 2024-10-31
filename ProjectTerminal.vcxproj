@@ -135,6 +135,10 @@
     <ClInclude Include="Manual.h" />
     <ClInclude Include="SubTopics.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="WhatIsCPlusPlus.txt" />
+    <Text Include="WhyLearnCPlusPlus.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
