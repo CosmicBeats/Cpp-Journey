@@ -1,0 +1,69 @@
+C++ is a widely used Object Oriented Programming language and is relatively easy to understand. 
+The “Hello World” program is the first step towards learning any programming language and is also one of the most straightforward programs you will learn.
+
+The Hello World Program in C++ is the basic program that is used to demonstrate how the coding process works. 
+All you have to do is display the message “Hello World” on the console screen.
+
+To write and run C++ programs, you need to set up the local environment on your computer. 
+Refer to the complete article Setting up C++ Development Environment. 
+If you do not want to set up the local environment on your computer, you can also use online IDE to write and run your C++ programs.
+
+Snipet
+
+    // C++ program to display "Hello World"
+
+    // Header file for input output functions
+    #include <iostream>
+    using namespace std;
+
+    // Main() function: where the execution of
+    // program begins
+    int main ()
+    {
+        // Prints hello world
+        cout << "Hello World";
+
+        return 0;
+    }
+
+End Snipet
+
+Getting started with your first C++ program is exciting. The C++ Course includes a step-by-step guide to writing your first “Hello World” program, laying the foundation for your programming journey.
+
+Working of Hello World Program in C++
+Let us now understand every line and the terminologies of the above program.
+
+1. // C++ program to display “Hello World”
+This line is a comment line. A comment is used to display additional information about the program. A comment does not contain any programming logic.
+
+When a comment is encountered by a compiler, the compiler simply skips that line of code. Any line beginning with ‘//’ without quotes OR in between /*…*/ in C++ is a comment. Click to know More about Comments.
+
+2. #include
+This is a preprocessor directive. The #include directive tells the compiler to include the content of a file in the source code.
+
+For example, #include<iostream> tells the compiler to include the standard iostream file which contains declarations of all the standard input/output library functions. Click to Know More on Preprocessors.
+
+3. using namespace std
+This is used to import the entity of the std namespace into the current namespace of the program. The statement using namespace std is generally considered a bad practice. When we import a namespace we are essentially pulling all type definitions into the current scope.
+
+The std namespace is huge. The alternative to this statement is to specify the namespace to which the identifier belongs using the scope operator(::) each time we declare a type. For example, std::cout. Click to know More about using namespace std.
+
+4. int main() { }
+A function is a group of statements that are designed to perform a specific task. The main() function is the entry point of every C++ program, no matter where the function is located in the program.
+
+The opening braces ‘{‘ indicates the beginning of the main function and the closing braces ‘}’ indicates the ending of the main function. Click to know More about the main() function.
+
+5. cout<<“Hello World”;
+std::cout is an instance of the std::ostream class, that is used to display output on the screen. Everything followed by the character << in double quotes ” ” is displayed on the output device. The semi-colon character at the end of the statement is used to indicate that the statement is ending there. Click to know More on Input/Output.
+
+6. return 0
+This statement is used to return a value from a function and indicates the finishing of a function. This statement is basically used in functions to return the results of the operations performed by a function.
+
+7. Indentation
+As you can see the cout and the return statement have been indented or moved to the right side. This is done to make the code more readable. We must always use indentations and comments to make the code more readable. Must read the FAQ on the style of writing programs.
+
+Important Points
+Always include the necessary header files for the smooth execution of functions. For example, <iostream> must be included to use std::cin and std::cout.
+The execution of code begins from the main() function.
+It is a good practice to use Indentation and comments in programs for easy understanding.
+cout is used to print statements and cin is used to take inputs.

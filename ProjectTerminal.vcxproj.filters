@@ -40,5 +40,8 @@
     <Text Include="WhyLearnCPlusPlus.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="WritingFirstCPlusPlusProgram.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -138,6 +138,7 @@
   <ItemGroup>
     <Text Include="WhatIsCPlusPlus.txt" />
     <Text Include="WhyLearnCPlusPlus.txt" />
+    <Text Include="WritingFirstCPlusPlusProgram.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
