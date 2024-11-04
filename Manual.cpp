@@ -145,7 +145,7 @@ void Manual::PrintSlowText(std::string text)
     for (int i = 0; i < text.length(); i++)
     {
         std::cout << text[i];
-        Sleep(25);
+        //Sleep(25);
     }
 }
 

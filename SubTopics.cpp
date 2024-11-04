@@ -119,76 +119,119 @@ void SubTopics::FirstCPlusPlusProgram()
 void SubTopics::ChangeColor(const std::string& line)
 {
 	Manual manual;
-	std::string output;
-	size_t pos = 0;
-
-	// Regex to match words inside <> or ""
-	std::regex pattern(R"(<[^>]*>|\"[^\"]*\")");
-	std::sregex_iterator it(line.begin(), line.end(), pattern);
-	std::sregex_iterator end;
-
-	// Process Orange and Text Coloring
 	std::string coloredLine;
-	bool isColored = false;
 	std::string word;
+	bool insideQuotes = false;
+	bool insideAngleBrackets = false;
 
 	for (size_t i = 0; i < line.size(); ++i)
 	{
-		// Handle whitespace (spaces and tabs)
+
+		if (i + 1 < line.size() && ((line[i] == '<' && line[i + 1] == '<') || (line[i] == '>' && line[i + 1] == '>')))
+		{
+			coloredLine += line[i];
+			coloredLine += line[i + 1];
+			i++;  // Skip the next character
+			continue;
+		}
+
+		// Preserve whitespace (spaces and tabs) in the output
 		if (std::isspace(line[i]))
 		{
 			coloredLine += line[i];
 			continue;
 		}
 
-		// Extract the word
 		word.clear();
-		size_t start = i;
-		while (i < line.size() && !std::isspace(line[i]))
-		{
-			word += line[i];
-			++i;
-		}
-		--i;
 
-		// Check if the word is in <>
-		std::smatch match;
-		if (std::regex_search(word, match, pattern))
+		// Detect the start of quoted text with " or <>
+		if (line[i] == '"' && !insideAngleBrackets)
 		{
-			if (word.front() == '<' && word.back() == '>' || word.front() == '"' && word.back() == '"')
+			insideQuotes = !insideQuotes;  // Toggle insideQuotes flag
+			word += line[i];
+
+			// If we closed the quotes, apply the color to the collected word
+			if (!insideQuotes)
 			{
 				coloredLine += ORANGE + word + RESET;
+				continue;
 			}
-			
 		}
-		else if (std::find(makeBlue.begin(), makeBlue.end(), word) != makeBlue.end())
+		else if (line[i] == '<' && !insideQuotes)
 		{
-			coloredLine += BLUE + word + RESET;
-			isColored = true;
+			insideAngleBrackets = true;
+			word += line[i];
 		}
-		else if (std::find(makeGreen.begin(), makeGreen.end(), word) != makeGreen.end())
+		else if (line[i] == '>' && insideAngleBrackets)
 		{
-			coloredLine += GREEN + word + RESET;
-			isColored = true;
+			insideAngleBrackets = false;
+			word += line[i];
+			coloredLine += ORANGE + word + RESET;
+			continue;
 		}
-		else if (std::find(makePurple.begin(), makePurple.end(), word) != makePurple.end())
+		else if (insideQuotes || insideAngleBrackets)
 		{
-			coloredLine += BRIGHTMAGENTA + word + RESET;
-			isColored = true;
-		}
-		else if (std::find(makeYellow.begin(), makeYellow.end(), word) != makeYellow.end())
-		{
-			coloredLine += YELLOW + word + RESET;
-			isColored = true;
+			// Collect characters within quotes or angle brackets
+			word += line[i];
 		}
 		else
 		{
-			coloredLine += word;
+			// Handle text outside quotes and brackets
+			while (i < line.size() && !std::isspace(line[i]) && line[i] != '<' && line[i] != '>' && line[i] != '"')
+			{
+				word += line[i++];
+			}
+			--i;
+
+			// Check if the word matches any color list
+			if (std::find(makeBlue.begin(), makeBlue.end(), word) != makeBlue.end())
+			{
+				coloredLine += BLUE + word + RESET;
+			}
+			else if (std::find(makeGreen.begin(), makeGreen.end(), word) != makeGreen.end())
+			{
+				coloredLine += GREEN + word + RESET;
+			}
+			else if (std::find(makePurple.begin(), makePurple.end(), word) != makePurple.end())
+			{
+				coloredLine += BRIGHTMAGENTA + word + RESET;
+			}
+			else if (std::find(makeYellow.begin(), makeYellow.end(), word) != makeYellow.end())
+			{
+				coloredLine += YELLOW + word + RESET;
+			}
+			else
+			{
+				coloredLine += word;
+			}
 		}
 
-		
+		// If inside quotes or angle brackets, add the current part of `word`
+		if (insideQuotes || insideAngleBrackets)
+		{
+			coloredLine += ORANGE + word + RESET;
+		}
+
+		if (!coloredLine.empty())
+		{
+			continue;
+		}
+
+		if (!coloredLine.empty() && coloredLine.back() == '\n') 
+		{
+			coloredLine.pop_back();
+		}
+			
 	}
 
-	manual.PrintSlowText(coloredLine);
-	std::cout << std::endl;
+	// Output the result using PrintSlowText
+	if (!coloredLine.empty())
+	{
+		manual.PrintSlowText(coloredLine);
+		
+	}
+	
 }
+
+
+
