@@ -86,6 +86,18 @@ void SubTopics::FirstCPlusPlusProgram()
 				continue;
 			}
 
+			if (line == "Output")
+			{
+				subTopic.inOutput = true;
+				continue;
+			}
+
+			if (line == "End Output")
+			{
+				subTopic.inOutput = false;
+				continue;
+			}
+
 			if (subTopic.inSnipet)
 			{
 				size_t firstNonSpace = line.find_first_not_of(" \t"); // Finds the first non-space character
@@ -99,6 +111,11 @@ void SubTopics::FirstCPlusPlusProgram()
 				subTopic.ChangeColor(line);
 				
 				
+				std::cout << std::endl;
+			}
+			else if (subTopic.inOutput)
+			{
+				manual.PrintSlowText(subTopic.WHITEBACKGROUND + line + subTopic.RESET);
 				std::cout << std::endl;
 			}
 			else
@@ -120,118 +137,93 @@ void SubTopics::ChangeColor(const std::string& line)
 {
 	Manual manual;
 	std::string coloredLine;
-	std::string word;
-	bool insideQuotes = false;
-	bool insideAngleBrackets = false;
 
-	for (size_t i = 0; i < line.size(); ++i)
+	// Combined regex pattern for detecting both quoted and angle-bracketed text
+	std::regex pattern(R"(<[^>]*>|\"[^\"]*\")");  // Matches text within either <> or ""
+
+	std::string::const_iterator searchStart(line.cbegin());
+	std::smatch match;
+
+	// Function to add unmatched sections directly to coloredLine
+	auto addUnmatchedText = [&coloredLine](std::string::const_iterator start, std::string::const_iterator end) 
+		{
+		coloredLine += std::string(start, end); // Add unmatched text as is
+		};
+
+	// Process the line for text within quotes or angle brackets
+	while (searchStart != line.cend())
 	{
+		if (std::regex_search(searchStart, line.cend(), match, pattern))
+		{
+			// Append unmatched text before the match
+			addUnmatchedText(searchStart, searchStart + match.position());
 
-		if (i + 1 < line.size() && ((line[i] == '<' && line[i + 1] == '<') || (line[i] == '>' && line[i + 1] == '>')))
-		{
-			coloredLine += line[i];
-			coloredLine += line[i + 1];
-			i++;  // Skip the next character
-			continue;
-		}
-
-		// Preserve whitespace (spaces and tabs) in the output
-		if (std::isspace(line[i]))
-		{
-			coloredLine += line[i];
-			continue;
-		}
-
-		word.clear();
-
-		// Detect the start of quoted text with " or <>
-		if (line[i] == '"' && !insideAngleBrackets)
-		{
-			insideQuotes = !insideQuotes;  // Toggle insideQuotes flag
-			word += line[i];
-
-			// If we closed the quotes, apply the color to the collected word
-			if (!insideQuotes)
-			{
-				coloredLine += ORANGE + word + RESET;
-				continue;
-			}
-		}
-		else if (line[i] == '<' && !insideQuotes)
-		{
-			insideAngleBrackets = true;
-			word += line[i];
-		}
-		else if (line[i] == '>' && insideAngleBrackets)
-		{
-			insideAngleBrackets = false;
-			word += line[i];
-			coloredLine += ORANGE + word + RESET;
-			continue;
-		}
-		else if (insideQuotes || insideAngleBrackets)
-		{
-			// Collect characters within quotes or angle brackets
-			word += line[i];
+			// Add the colored match
+			coloredLine += ORANGE + match.str() + RESET;
+			searchStart += match.position() + match.length();
 		}
 		else
 		{
-			// Handle text outside quotes and brackets
-			while (i < line.size() && !std::isspace(line[i]) && line[i] != '<' && line[i] != '>' && line[i] != '"')
+			// If no more matches, add the remaining text and break
+			addUnmatchedText(searchStart, line.cend());
+			break;
+		}
+	}
+
+	// Additional coloring of specific words outside quotes and brackets
+	std::string finalColoredLine;
+	std::string word;
+
+	for (size_t i = 0; i < coloredLine.size(); ++i)
+	{
+		char ch = coloredLine[i];
+		if (std::isspace(ch))
+		{
+			// Preserve whitespace
+			finalColoredLine += ch;
+		}
+		else
+		{
+			// Build a word
+			word.clear();
+			while (i < coloredLine.size() && !std::isspace(coloredLine[i]))
 			{
-				word += line[i++];
+				word += coloredLine[i++];
 			}
-			--i;
+			--i;  // Adjust for the outer loop increment
 
 			// Check if the word matches any color list
 			if (std::find(makeBlue.begin(), makeBlue.end(), word) != makeBlue.end())
 			{
-				coloredLine += BLUE + word + RESET;
+				finalColoredLine += BLUE + word + RESET;
 			}
 			else if (std::find(makeGreen.begin(), makeGreen.end(), word) != makeGreen.end())
 			{
-				coloredLine += GREEN + word + RESET;
+				finalColoredLine += GREEN + word + RESET;
 			}
 			else if (std::find(makePurple.begin(), makePurple.end(), word) != makePurple.end())
 			{
-				coloredLine += BRIGHTMAGENTA + word + RESET;
+				finalColoredLine += BRIGHTMAGENTA + word + RESET;
 			}
 			else if (std::find(makeYellow.begin(), makeYellow.end(), word) != makeYellow.end())
 			{
-				coloredLine += YELLOW + word + RESET;
+				finalColoredLine += YELLOW + word + RESET;
 			}
 			else
 			{
-				coloredLine += word;
+				finalColoredLine += word;
 			}
 		}
-
-		// If inside quotes or angle brackets, add the current part of `word`
-		if (insideQuotes || insideAngleBrackets)
-		{
-			coloredLine += ORANGE + word + RESET;
-		}
-
-		if (!coloredLine.empty())
-		{
-			continue;
-		}
-
-		if (!coloredLine.empty() && coloredLine.back() == '\n') 
-		{
-			coloredLine.pop_back();
-		}
-			
 	}
 
 	// Output the result using PrintSlowText
-	if (!coloredLine.empty())
+	if (!finalColoredLine.empty())
 	{
-		manual.PrintSlowText(coloredLine);
+		manual.PrintSlowText(finalColoredLine);
 		
 	}
-	
 }
+
 
 
 

@@ -30,6 +30,10 @@ Snipet
 -----------------------------------------------------------------------
 
 End Snipet
+Output:
+Output
+Hello World
+End Output
 
 Getting started with your first C++ program is exciting. The C++ Course includes a step-by-step guide to writing your first “Hello World” program, laying the foundation for your programming journey.
 
