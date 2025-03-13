@@ -129,9 +129,16 @@
   <ItemGroup>
     <ClCompile Include="Manual.cpp" />
     <ClCompile Include="ProjectTerminal.cpp" />
+    <ClCompile Include="SubTopics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manual.h" />
+    <ClInclude Include="SubTopics.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="WhatIsCPlusPlus.txt" />
+    <Text Include="WhyLearnCPlusPlus.txt" />
+    <Text Include="WritingFirstCPlusPlusProgram.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

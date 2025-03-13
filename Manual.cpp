@@ -2,6 +2,7 @@
 
 Manual::Manual()
 {
+    
     topics = {
         {"C++ Programming Language",    {"What is C++?", "Why Learn C++?"}},
 
@@ -115,26 +116,28 @@ void Manual::SubInputValidation()
             std::cout << "\nPlease be more specific: ";
             continue;
         }
-        else if (userMainTopicInput == "c++")
+        else if (userSubTopicInput == "c++")
         {
             std::cout << "\nPlease be more specific: ";
             continue;
         }
-
-        std::string subTopics = FindSubTopic();
-
-        if (subTopics != "")
+        else
         {
-            PrintSlowText("\nYou have selected the topic: ");
+            std::string subTopics = FindSubTopic();
 
-            
-            std::cout << subTopics << std::endl << std::endl;
-            break;
+            if (subTopics != "")
+            {
+                system("cls");
+                PrintSlowText("\nYou have selected the topic: ");
+
+
+                std::cout << subTopics << std::endl << std::endl;
+                SelectTopic();
+                break;
+            }
         }
     }
 
-
-   
 }
 
 void Manual::PrintSlowText(std::string text)
@@ -142,7 +145,7 @@ void Manual::PrintSlowText(std::string text)
     for (int i = 0; i < text.length(); i++)
     {
         std::cout << text[i];
-        Sleep(25);
+        Sleep(15);
     }
 }
 
@@ -193,7 +196,24 @@ std::string Manual::FindSubTopic()
 
 }
 
+void Manual::SelectTopic()
+{
+    SubTopics subTopics;
 
+    std::string subTopic = FindSubTopic();
+
+    auto it = subTopics.subTopicActions.find(subTopic);
+    if (it != subTopics.subTopicActions.end())
+    {
+        it->second();
+    }
+    else
+    {
+        std::cout << "Function not found!" << std::endl;
+    }
+    
+
+}
 
 
 

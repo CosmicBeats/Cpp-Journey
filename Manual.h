@@ -5,11 +5,16 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include "SubTopics.h"
+
+
 
 
 class Manual
 {
 	// Variables to work with
+
+    
 
     bool inMainTopic;
 
@@ -19,6 +24,9 @@ class Manual
   
     std::vector<std::pair<std::string, std::vector<std::string>>> topics;
 
+    
+        
+
     //Functions
 
 public:
@@ -27,6 +35,7 @@ public:
     void MainInputValidation();
     void SubInputValidation();
     void PrintSlowText(std::string text);
+    void SelectTopic();
 
     std::vector < std::pair<std::string, std::vector<std::string>>>::const_iterator FindMainTopic();
 

@@ -21,10 +21,27 @@
     <ClCompile Include="Manual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SubTopics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SubTopics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="WhatIsCPlusPlus.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="WhyLearnCPlusPlus.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="WritingFirstCPlusPlusProgram.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
