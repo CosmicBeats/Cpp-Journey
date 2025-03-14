@@ -159,6 +159,15 @@ std::string Manual::ToLower(const std::string& str)
     return result;
 }
 
+void Manual::ShowMainMenu()
+{
+    Manual manual;
+    manual.inMainTopic = true;
+    manual.userMainTopicInput = "";
+    system("cls");
+    manual.Start();
+}
+
 
 std::vector < std::pair<std::string, std::vector<std::string>>>::const_iterator Manual::FindMainTopic()
 {

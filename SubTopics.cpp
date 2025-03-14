@@ -24,6 +24,7 @@ void SubTopics::WhatIsCPlusPlus()
 	std::ifstream inFile("WhatIsCPlusPlus.txt");
 
 	Manual manual;
+	SubTopics subTopics;
 
 	if (inFile.is_open())
 	{
@@ -34,11 +35,15 @@ void SubTopics::WhatIsCPlusPlus()
 			std::cout << std::endl;
 		}
 		inFile.close();
+
 	}
 	else
 	{
 		std::cout << "Unable to open file for reading" << std::endl;
 	}
+
+		subTopics.ValidateUsersChoice();
+
 }
 
 void SubTopics::WhyLearnCPlusPlus()
@@ -221,6 +226,30 @@ void SubTopics::ChangeColor(const std::string& line)
 	{
 		manual.PrintSlowText(finalColoredLine);
 		
+	}
+}
+
+void SubTopics::ValidateUsersChoice()
+{
+	Manual manual;
+
+
+
+	while (manual.inMainTopic)
+	{
+		std::getline(std::cin, userChoiceInput);
+
+		std::string result = manual.ToLower(userChoiceInput);
+
+		if (result == "yes" || result == "ye" || result == "y")
+		{
+			manual.inMainTopic = true;
+			manual.ShowMainMenu();
+		}
+		else if(result == "no" || result == "n")
+		{
+			break;
+		}
 	}
 }
 

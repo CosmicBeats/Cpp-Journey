@@ -19,6 +19,8 @@ class SubTopics
 
 	bool inSnipet = false;
 	bool inOutput = false;
+
+	std::string userChoiceInput;
 	
 	const std::string BLUE = "\033[38;5;33m";
 	const std::string COMMENTGREEN = "\033[38;5;28m";
@@ -34,6 +36,7 @@ public:
 	std::unordered_map<std::string, void(*)()> subTopicActions;
 	SubTopics();
 	void ChangeColor(const std::string& line);
+	void ValidateUsersChoice();
 	static void WhatIsCPlusPlus();
 	static void WhyLearnCPlusPlus();
 	static void FirstCPlusPlusProgram();

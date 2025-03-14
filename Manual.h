@@ -14,10 +14,6 @@ class Manual
 {
 	// Variables to work with
 
-    
-
-    bool inMainTopic;
-
 	std::string userMainTopicInput;
 
     std::string userSubTopicInput;
@@ -30,6 +26,8 @@ class Manual
     //Functions
 
 public:
+
+    bool inMainTopic;
     Manual();
     void Start();
     void MainInputValidation();
@@ -42,7 +40,7 @@ public:
     std::string FindSubTopic();
     std::string ToLower(const std::string& str);
 
-    
+    void ShowMainMenu();
 
 };
 
