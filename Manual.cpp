@@ -142,10 +142,24 @@ void Manual::SubInputValidation()
 
 void Manual::PrintSlowText(std::string text)
 {
-    for (int i = 0; i < text.length(); i++)
+    int index = 0;
+
+    for (; index < text.length(); index++)
     {
-        std::cout << text[i];
+        std::cout << text[index];
         Sleep(15);
+
+        if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+        {
+            break;
+        }
+
+    }
+
+
+    for (; index < text.length(); index++)
+    {
+        std::cout << text[index];
     }
 }
 
